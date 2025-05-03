@@ -37,8 +37,6 @@ const Navbar = () => {
           >
             Accueil
           </Link>
-
-          
             <>
               <Link
                 to="/login"

@@ -76,7 +76,7 @@ function LoginForm() {
     <div
       className="min-h-screen w-full bg-cover bg-center bg-no-repeat flex flex-col justify-center bg-[rgb(108,88,76)] items-center px-4" >
       <h1 className="text-4xl md:text-5xl text-white font-bold mb-8  bg-opacity-40 px-6 py-4 rounded-lg">
-        Welcome to your blog
+        Welcome to Wecoook
       </h1>
       <div className=" bg-[rgb(246,233,215)] p-8 md:p-12 rounded-lg shadow-2xl max-w-md w-full backdrop-blur-sm">
         <h2 className="text-2xl font-bold text-black mb-6 text-center">Login</h2>

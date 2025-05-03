@@ -1,28 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Footer from '../compenents/Footer'
 import Navbar from '../compenents/Navbar'
 import pic from '../assets/chef_wiwi.png'
 import { Link, useNavigate } from "react-router-dom";
 import RecipeCard from '../compenents/RecipeCard';
+import axios from 'axios';
 
 function Home() {
   const [showModal, setShowModal] = useState(false);
+  const [recipes, setRecipes] = useState([]);
 
-  // const recette = {
-  //   title: "Pasta à la Wiame",
-  //   ingredients: [
-  //     "200g de pâtes",
-  //     "2 cuillères d'huile d'olive",
-  //     "1 gousse d'ail",
-  //     "Sel, poivre",
-  //   ],
-  //   steps: [
-  //     "Faire bouillir de l'eau et cuire les pâtes.",
-  //     "Faire revenir l'ail dans l'huile.",
-  //     "Ajouter les pâtes, sel et poivre.",
-  //     "Mélanger et servir chaud.",
-  //   ],
-  // };
+  useEffect(() => {
+    axios.get('http://localhost:3000/recipes')
+    .then(response => {
+      setRecipes(response.data);
+    })
+    .catch(error => {
+      console.error("Erreur lors du chargement des recettes:", error);
+    });
+}, []);
+
+ 
 
   const handleRecipeAdded = (newRecipe) => {
     setShowModal(false); 
@@ -85,25 +83,26 @@ function Home() {
               ajoute une recette 
             </button>
           </div>
-          {/* <div className="bg-[#6C584C] p-6 rounded-xl shadow-lg w-full max-w-lg text-white">
-            <h2 className="text-2xl font-bold mb-4">{recette.title}</h2>
-            <h3 className="font-semibold text-lg">Ingrédients :</h3>
-            <ul className="list-disc list-inside mb-4 pl-2">
-              {recette.ingredients.map((item, i) => (
-                <li key={i} className="mb-1">{item}</li>
-              ))}
-            </ul>
-
-            <h3 className="font-semibold text-lg">Étapes :</h3>
-            <ol className="list-decimal list-inside pl-2">
-              {recette.steps.map((step, i) => (
-                <li key={i} className="mb-2">{step}</li>
-              ))}
-            </ol>
-          </div> */}
+          <div className="p-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {recipes.map((recipe) => (
+                  <div key={recipe.id} className="bg-[#fdf6ec] p-4 rounded-lg shadow-lg">
+                    {recipe.image && (
+                      <img src={recipe.image} alt={recipe.title} className="w-full h-48 object-cover rounded" />
+                    )}
+                    <h2 className="text-xl font-semibold mt-2">{recipe.title}</h2>
+                    <p className="text-sm text-gray-600">Origine : {recipe.origine}</p>
+                    <p className="text-gray-800 mt-2"><strong>Ingrédients :</strong> {recipe.ingridient}</p>
+                    <p className="text-gray-800 mt-2"><strong>Étapes :</strong> {recipe.etapes}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <Footer />
         </section>
 
-        <Footer />
+        
       </div>
     </>
   )
