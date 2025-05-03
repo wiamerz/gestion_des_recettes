@@ -4,6 +4,7 @@ import RegistreForm from './compenents/RegistreForm'
 import './index.css'
 import LoginForm from './compenents/LoginForm'
 import Home from './pages/Home'
+import RecipeCard from './compenents/RecipeCard'
 
 function App() {
   return (
