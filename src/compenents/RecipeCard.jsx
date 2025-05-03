@@ -76,19 +76,19 @@ const RecipeCard = ({ onRecipeAdded }) => {
     };
 
     const validationSchema = Yup.object({
-        title: Yup.string()
+            title: Yup.string()
             .required('Title is required')
             .min(3, 'Title must be at least 3 characters')
             .max(100, "Title must be at most 100"),
-         origine: Yup.string()
+            origine: Yup.string()
             .required('origine is required')
             .min(2, 'origine must be at least 2 characters'),
-        ingridient: Yup.string()
-            .required('ingridient is required')
-            .min(10, 'ingridient must be at least 10 characters'),
-        etapes: Yup.string()
-            .required('etapes is required')
-            .min(10, 'etapes must be at least 10 characters'),
+            ingredient: Yup.string()
+            .required('ingredient is required')
+            .min(10, 'ingredient must be at least 10 characters'),
+            instructions: Yup.string()
+            .required('instructions is required')
+            .min(10, 'instructions must be at least 10 characters'),
     });
 
     return (
@@ -97,8 +97,8 @@ const RecipeCard = ({ onRecipeAdded }) => {
                 initialValues={{
                     title: '',
                     origine: '',
-                    ingridient: '',
-                    etapes:'',
+                    ingredient: '',
+                    instructions:'',
                 }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
@@ -130,27 +130,27 @@ const RecipeCard = ({ onRecipeAdded }) => {
                         </div>
 
                         <div className="mb-4">
-                            <label htmlFor="ingridient" className="block text-sm font-medium mb-1 text-white">Ingridients</label>
+                            <label htmlFor="ingredient" className="block text-sm font-medium mb-1 text-white">Ingredient</label>
                             <Field
                                 as="textarea"
-                                id="ingridient"
-                                name="ingridient"
+                                id="ingredient"
+                                name="ingredient"
                                 rows="4"
-                                className={`bg-[#f6e9d7] text-black p-2 w-full rounded border ${touched.ingridient && errors.ingridient ? 'border-red-500' : 'border-[#7d6a5c]'}`}
+                                className={`bg-[#f6e9d7] text-black p-2 w-full rounded border ${touched.ingredient && errors.ingredient ? 'border-red-500' : 'border-[#7d6a5c]'}`}
                             />
-                            <ErrorMessage name="ingridient" component="div" className="text-red-300 text-sm mt-1" />
+                            <ErrorMessage name="ingredient" component="div" className="text-red-300 text-sm mt-1" />
                         </div>
 
                         <div className="mb-4">
-                            <label htmlFor="etapes" className="block text-sm font-medium mb-1 text-white">Les étapes suivi</label>
+                            <label htmlFor="instructions" className="block text-sm font-medium mb-1 text-white">Instructions</label>
                             <Field
                                 as="textarea"
-                                id="etapes"
-                                name="etapes"
+                                id="instructions"
+                                name="instructions"
                                 rows="4"
-                                className={`bg-[#f6e9d7] text-black p-2 w-full rounded border ${touched.etapes && errors.etapes ? 'border-red-500' : 'border-[#7d6a5c]'}`}
+                                className={`bg-[#f6e9d7] text-black p-2 w-full rounded border ${touched.instructions && errors.instructions ? 'border-red-500' : 'border-[#7d6a5c]'}`}
                             />
-                            <ErrorMessage name="etapes" component="div" className="text-red-300 text-sm mt-1" />
+                            <ErrorMessage name="instructions" component="div" className="text-red-300 text-sm mt-1" />
                         </div>
 
                         <div className="mb-4">

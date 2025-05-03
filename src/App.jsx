@@ -5,6 +5,7 @@ import './index.css'
 import LoginForm from './compenents/LoginForm'
 import Home from './pages/Home'
 import RecipeCard from './compenents/RecipeCard'
+import RecipeDetails from './compenents/RecipeDetails'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path='/' element={<Home/>}  />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<RegistreForm />} />
+        <Route path="/recipes/:id" element={<RecipeDetails />} />
       </Routes>
   )
 }

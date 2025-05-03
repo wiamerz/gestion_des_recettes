@@ -5,6 +5,9 @@ import pic from '../assets/chef_wiwi.png'
 import { Link, useNavigate } from "react-router-dom";
 import RecipeCard from '../compenents/RecipeCard';
 import axios from 'axios';
+import '../index.css'
+
+
 
 function Home() {
   const [showModal, setShowModal] = useState(false);
@@ -86,24 +89,31 @@ function Home() {
           <div className="p-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {recipes.map((recipe) => (
-                  <div key={recipe.id} className="bg-[#fdf6ec] p-4 rounded-lg shadow-lg">
+                  <div key={recipe.id} className="bg-[#fdf6ec00] p-4 rounded-lg shadow-lg">
                     {recipe.image && (
-                      <img src={recipe.image} alt={recipe.title} className="w-full h-48 object-cover rounded" />
+                      <img src={recipe.image} alt={recipe.title} className="w-full h-80 object-cover rounded" />
                     )}
-                    <h2 className="text-xl font-semibold mt-2">{recipe.title}</h2>
-                    <p className="text-sm text-gray-600">Origine : {recipe.origine}</p>
-                    <p className="text-gray-800 mt-2"><strong>Ingrédients :</strong> {recipe.ingridient}</p>
-                    <p className="text-gray-800 mt-2"><strong>Étapes :</strong> {recipe.etapes}</p>
+                    <h2 className="text-xl text-white font-semibold mt-2">{recipe.title}</h2>
+                    {/* <p className="text-sm text-gray-600">Origine : {recipe.origine}</p>
+                    <p className="text-gray-800 mt-2"><strong>Ingrédients :</strong> {recipe.ingredient}</p>
+                    <p className="text-gray-800 mt-2"><strong>Étapes :</strong> {recipe.instructions}</p> */}
+                  
+                  <Link to={`/recipes/${recipe.id}`}>
+                  <button className="mt-4 bg-[#6C584C] text-white px-4 py-2 rounded hover:bg-[#5a473c]">
+                    Details
+                  </button>
+                  </Link>
                   </div>
+
+                  
                 ))}
               </div>
             </div>
             
-            <Footer />
+           
         </section>
-
-        
       </div>
+      <Footer />
     </>
   )
 }
