@@ -13,15 +13,24 @@ function Home() {
   const [showModal, setShowModal] = useState(false);
   const [recipes, setRecipes] = useState([]);
 
+  
+  
+  
+
+  const username = localStorage.getItem('username');
+  const isLoggedIn = Boolean(username);
+
   useEffect(() => {
+   
     axios.get('http://localhost:3000/recipes')
-    .then(response => {
-      setRecipes(response.data);
-    })
-    .catch(error => {
-      console.error("Erreur lors du chargement des recettes:", error);
-    });
-}, []);
+      .then(response => {
+        setRecipes(response.data);
+      })
+      .catch(error => {
+        console.error("Erreur lors du chargement des recettes:", error);
+      });
+  }, []);
+  
 
  
 
@@ -65,44 +74,62 @@ function Home() {
             Maîtrisez vos fiches recettes. Créez sans limites. </h2>
 
           <p className='text-center'>Centralisez vos recettes, maîtrisez vos coûts, optimisez vos commandes. Libérez votre créativité.</p>
-
+          
+          {!isLoggedIn ? ( 
+          <>
           <Link
             to="/signup"
             className="rounded-2xl py-1 px-2 border bg-[rgb(255,255,255)] hover:bg-[rgb(243,180,78)] transition-colors duration-300"
           >
             Inscrivez-vous gratuitement
           </Link>
+
+          </>
+
+          ):(
+            <button 
+            onClick={() => setShowModal(true)}
+            className='text-white font-bold rounded-2xl py-1 px-2 bg-[rgb(181,138,115)] border border-[rgb(73,56,46)] hover:bg-[rgb(82,53,29)] transition-colors duration-300'
+          > 
+            ajoute une recette 
+          </button>
+
+          )}
+          
         </div>
 
         {/* section des recettes */}
         <section className='bg-[rgb(108,88,76)]'>
-          <div className='flex justify-between items-center m-4'>
+          <div className='flex justify-center items-center m-4'>
             <h1 className='text-center text-white font-bold text-3xl'> Les recettes </h1>
             
-            <button 
+            {/* <button 
               onClick={() => setShowModal(true)}
               className='text-white font-bold rounded-2xl py-1 px-2 bg-[rgb(181,138,115)] border border-[rgb(73,56,46)] hover:bg-[rgb(82,53,29)] transition-colors duration-300'
             > 
               ajoute une recette 
-            </button>
+            </button> */}
           </div>
           <div className="p-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {recipes.map((recipe) => (
-                  <div key={recipe.id} className="bg-[#fdf6ec00] p-4 rounded-lg shadow-lg">
+                  <div key={recipe.id} className="bg-[#f2c57c] p-4 rounded-lg shadow-lg">
                     {recipe.image && (
-                      <img src={recipe.image} alt={recipe.title} className="w-full h-80 object-cover rounded" />
+                      <img src={recipe.image} alt={recipe.title} className="w-[600px] h-[400px] object-cover rounded" />
                     )}
-                    <h2 className="text-xl text-white font-semibold mt-2">{recipe.title}</h2>
-                    {/* <p className="text-sm text-gray-600">Origine : {recipe.origine}</p>
-                    <p className="text-gray-800 mt-2"><strong>Ingrédients :</strong> {recipe.ingredient}</p>
-                    <p className="text-gray-800 mt-2"><strong>Étapes :</strong> {recipe.instructions}</p> */}
-                  
-                  <Link to={`/recipes/${recipe.id}`}>
-                  <button className="mt-4 bg-[#6C584C] text-white px-4 py-2 rounded hover:bg-[#5a473c]">
-                    Details
-                  </button>
-                  </Link>
+
+                    <div className='flex justify-between items-center mb-4'>
+                        <h2 className="text-xl text-white font-semibold mt-2">{recipe.title}</h2>
+                        {/* <p className="text-sm text-gray-600">Origine : {recipe.origine}</p>
+                        <p className="text-gray-800 mt-2"><strong>Ingrédients :</strong> {recipe.ingredient}</p>
+                        <p className="text-gray-800 mt-2"><strong>Étapes :</strong> {recipe.instructions}</p> */}
+                      
+                      <Link to={`/recipes/${recipe.id}`}>
+                      <button className="mt-4 bg-[#A1C181] text-white px-4 py-2 rounded  hover:bg-[#5a473c]">
+                        Details
+                      </button>
+                      </Link>
+                    </div>
                   </div>
 
                   
@@ -110,10 +137,10 @@ function Home() {
               </div>
             </div>
             
-           
+            <Footer />
         </section>
       </div>
-      <Footer />
+     
     </>
   )
 }

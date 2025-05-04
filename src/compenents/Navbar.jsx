@@ -3,22 +3,24 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 const Navbar = () => {
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
 
-//   useEffect(() => {
-//     const userData = localStorage.getItem("userData");
-//     setIsLoggedIn(!!userData);
-//   }, []);
+  useEffect(() => {
+    const userData = localStorage.getItem("userData");
+    setIsLoggedIn(!!userData);
+  }, []);
 
-//   const handleLogout = () => {
-//     localStorage.removeItem("userData");
-//     localStorage.removeItem("username");
-//     setIsLoggedIn(false);
+  const handleLogout = () => {
+    localStorage.removeItem("userData");
+    localStorage.removeItem("username");
+    setIsLoggedIn(false);
 
-//     window.location.reload();
+    window.location.reload();
 
-//     navigate("/");
-//   };
+    navigate("/");
+  };
 
   return (
     <nav className="bg-[rgb(161,193,129)] p-4 shadow-lg text-black">
@@ -37,6 +39,8 @@ const Navbar = () => {
           >
             Accueil
           </Link>
+            
+          {!isLoggedIn ? (
             <>
               <Link
                 to="/login"
@@ -51,13 +55,16 @@ const Navbar = () => {
                 S’inscrire
               </Link>
             </>
-           
-            {/* <button
+
+          ) : (
+            <button
               onClick={handleLogout}
-              className="text-white hover:text-red-500 transition-colors duration-300"
+              className="hover:text-[rgb(243,180,78)] transition-colors duration-300"
             >
               Déconnexion
-            </button> */}
+            </button>
+          )}
+           
         </div>
       </div>
     </nav>

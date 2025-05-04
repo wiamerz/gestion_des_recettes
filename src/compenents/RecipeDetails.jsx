@@ -4,6 +4,7 @@ import axios from 'axios';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import '../index.css';
+import { Trash2, Pencil } from 'lucide-react';
 
 const RecipeDetails = () => {
   const { id } = useParams();
@@ -17,6 +18,9 @@ const RecipeDetails = () => {
     instructions: '',
     image: ''
   });
+
+  const username = localStorage.getItem('username');
+  const isLoggedIn = Boolean(username);
 
   useEffect(() => {
     axios.get(`http://localhost:3000/recipes/${id}`)
@@ -85,18 +89,18 @@ const RecipeDetails = () => {
           <h1 className="text-5xl font-bold mb-8">{recipe.title}</h1>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-6">
-          <div className="md:w-1/2">
-            <img src={recipe.image} alt={recipe.title} className="w-full h-64 object-cover rounded-lg shadow-md" />
+        <div className="flex flex-col md:flex-row gap-8">
+          <div className="md:w-1/3">
+            <img src={recipe.image} alt={recipe.title} className="w-[400px] h-[400px] object-cover rounded-lg shadow-md" />
           </div>
           <div className="md:w-1/2">
             <div className="mb-4">
-              <h2 className="text-lg mb-1">Origine :</h2>
-              <p className="text-lg font-semibold">{recipe.origine}</p>
+              <h2 className="text-lg mb-1">Origine : {recipe.origine}</h2>
+              {/* <p className="text-lg font-semibold"></p> */}
             </div>
             <div>
               <h2 className="text-lg mb-1">Ingrédients :</h2>
-              <div className="bg-[#6C584C] text-white p-4 rounded-md h-32 overflow-y-auto">
+              <div className="bg-[#6C584C] text-white p-4 rounded-md min-h-32 overflow-y-auto">
                 {recipe.ingredient}
               </div>
             </div>
@@ -104,23 +108,26 @@ const RecipeDetails = () => {
         </div>
 
         <div className="mt-8">
-          <h2 className="text-lg mb-1">Les étapes :</h2>
-          <div className="bg-[#6C584C] text-white p-4 rounded-md min-h-48 overflow-y-auto">
-            {recipe.instructions}
-          </div>
-        </div>
-
-        <div className="flex justify-center md:justify-start gap-4 mt-6">
-          <button onClick={handleEditClick} className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded">
-            Modifier
+               <h2 className="text-lg mb-1">Instructions :</h2>
+                <div className="bg-[#6C584C] text-white p-4 rounded-md min-h-48 overflow-y-auto">
+                    {recipe.instructions}
+                </div>
+             </div>
+        
+        {isLoggedIn && (
+        <div className="flex justify-center md:justify-end gap-4 mt-6">
+          <button onClick={handleEditClick} className="bg-[#A1C181] hover:bg-[#8dbc5d] text-white py-2 px-4 rounded">
+          <Pencil size={18} />
           </button>
-          <button onClick={handleDelete} className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded">
-            Supprimer
+          <button onClick={handleDelete} className="bg-[#F2C57C] hover:bg-[#e3b05e] text-white py-2 px-4 rounded">
+          <Trash2 size={18} />
+          
           </button>
-        </div>
+        </div> 
+      )}
 
         {isEditing && (
-          <form onSubmit={handleEdit} className="mt-10 space-y-4 text-white">
+          <form onSubmit={handleEdit} className="mt-10 space-y-4 ">
             <div>
               <label className="block mb-1">Titre</label>
               <input

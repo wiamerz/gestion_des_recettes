@@ -58,7 +58,9 @@ function LoginForm() {
       if (savedData && savedData.email === formData.email && savedData.password === formData.password) {
         setSuccessMessage('Connexion réussie !');
 
-        localStorage.setItem("username", savedData.username);
+        // localStorage.setItem("username", savedData.username);
+        localStorage.setItem("currentUser", JSON.stringify({ email, role: "admin" }));
+
 
         setIsLoggedIn(true);
 
